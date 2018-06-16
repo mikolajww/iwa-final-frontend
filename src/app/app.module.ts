@@ -17,7 +17,7 @@ const routes:Routes = [
   {path: '',redirectTo:'home', pathMatch:'full'},
   {path: 'home', component:StudentListComponent},
   {path: 'about', component:AboutComponent}
-]
+];
 
 @NgModule({
   declarations: [

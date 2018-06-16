@@ -1,4 +1,4 @@
-<app-student-search app-student-search (onStudentSorted) = "studentSorted($event)"></app-student-search>
+<app-student-search (onStudentSorted) = "studentSorted($event)"></app-student-search>
 <app-student-add (onStudentAdded) = "studentAdded($event)"></app-student-add>
 
 <h1 class="ui horizontal divider header">Student List</h1>
@@ -7,7 +7,7 @@
                      *ngFor="let s of students | filter:getService().getFilter() " [student]="s">
 </app-student-detail>
 
-<div class="ui basic modal">
+<div class="ui modal">
   <div class="ui icon header">
     <i class="trash alternate icon"></i>
     Delete this student?
@@ -16,7 +16,7 @@
     <p>Are you sure you want to delete this student?</p>
   </div>
   <div class="actions">
-    <div class="ui red basic cancel inverted button">
+    <div class="ui red cancel inverted button">
       <i class="remove icon"></i>
       No
     </div>

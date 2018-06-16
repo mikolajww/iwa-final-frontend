@@ -14,6 +14,7 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
   @Input() student:Student;
   detailedInfo:boolean;
   gradeEdit:boolean;
+  thumbnailUrl:string;
   @Output() onStudentDeleted: EventEmitter<Student>;
 
 
@@ -23,7 +24,9 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('Created ' + this.student.name)
+    this.studentService.getAvatar(this.student).subscribe(r=> {
+      this.thumbnailUrl = r.thumbnailUrl;
+    });
   }
 
   ngOnDestroy() {
@@ -36,6 +39,9 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
         g => this.student.grades.push(g)
       );
     }
+    subject.value = "";
+    grade.value = "";
+    weight.value = "";
     return false;
   }
 
@@ -49,7 +55,7 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
   }
 
   deleteStudent():void {
-    jQuery('.ui.basic.modal').modal({
+    jQuery('.ui.modal').modal({
       onApprove: () => {
         this.studentService.deleteStudent(this.student).subscribe(() => {this.onStudentDeleted.emit(this.student)});
       }
