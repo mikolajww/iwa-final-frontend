@@ -1,19 +1,19 @@
 <h1 class="ui horizontal divider center aligned header">Add a student</h1>
 <div class="ui raised segment">
-  <form>
-    <div class="ui labeled input">
+  <form [formGroup]="addStudentForm">
+    <div class="ui labeled input field" [ngClass]="(name.invalid && name.touched && name.value.length > 0)?'error' : (name.valid)?'success':''">
       <div class="ui label">
         Name
       </div>
       <input type="text" #name required>
     </div>
-    <div class="ui labeled input">
+    <div class="ui labeled input field" [ngClass]="(surname.invalid && surname.touched && surname.value.length > 0)?'error' : (surname.valid)?'success':''">
       <div class="ui label">
         Surname
       </div>
       <input type="text" #surname required>
     </div>
-    <div class="ui labeled input">
+    <div class="ui labeled input field" [ngClass]="(idx.invalid && idx.touched && idx.value.length > 0)?'error' : (idx.valid)?'success':''">
       <div class="ui label">
         Index number
       </div>
@@ -22,4 +22,12 @@
     <input class="ui positive right floated button" type="submit" value="Submit" (click)="addStudent(name,surname,idx); name.value = ''; surname.value = ''; idx.value = ''">
   </form>
 </div>
-<br>
+
+<div class="ui negative message incorrect">
+  <div class="content">
+    <div class="header">
+      Incorrect data
+    </div>
+    <p>The fields are incorrect!</p>
+  </div>
+</div>
