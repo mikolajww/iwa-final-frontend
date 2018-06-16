@@ -8,8 +8,13 @@
       Please log in as a teacher to view and edit students' grades.<br>
       Please log in as an administrator to add and delete students and grades. <br>
     </p>
-    <button class="ui huge fluid simple button" (click)="redirect('login')">Log in</button>
-    <h3 class="ui horizontal divider header">Not registered yet?</h3>
-    <button class="ui huge fluid simple button" (click)="redirect('signup')">Sign up</button>
+    <div *ngIf="!isLoggedIn()">
+      <button class="ui huge fluid simple button" (click)="redirect('login')">Log in</button>
+      <h3 class="ui horizontal divider header">Not registered yet?</h3>
+      <button class="ui huge fluid simple button" (click)="redirect('signup')">Sign up</button>
+    </div>
+    <div *ngIf="isLoggedIn()">
+      <button class="ui huge fluid simple button" (click)="logout()">Log out</button>
+    </div>
   </div>
 </div>

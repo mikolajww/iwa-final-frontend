@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-about',
@@ -8,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class AboutComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private auth:AuthService) { }
 
   ngOnInit() {
     console.log(localStorage)
@@ -16,5 +17,11 @@ export class AboutComponent implements OnInit {
 
   redirect(location:string) {
     this.router.navigateByUrl(`/${location}`);
+  }
+  isLoggedIn() {
+    return this.auth.isLoggedIn();
+  }
+  logout() {
+    this.auth.logout();
   }
 }
