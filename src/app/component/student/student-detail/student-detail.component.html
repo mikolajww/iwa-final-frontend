@@ -32,61 +32,61 @@
       </div>
       <div *ngIf="grade.singleGradeEdit">
         <br>
-        <form>
+        <form [formGroup]="editMarkForm">
           <div class="ui labeled input">
             <div class="ui label">
               Subject
             </div>
-            <input type="text" value="{{student.grades[i].subject}}" #subject>
+            <input formControlName="subject" type="text" value="{{student.grades[i].subject}}" #subject>
           </div>
 
           <div class="ui labeled input">
             <div class="ui label">
               Grade
             </div>
-            <input type="number" value="{{student.grades[i].grade}}" #grade>
+            <input formControlName="grade" type="number" value="{{student.grades[i].grade}}" min="1" max="6" #grade>
           </div>
 
           <div class="ui labeled input">
             <div class="ui label">
               Weight
             </div>
-            <input type="number" value="{{student.grades[i].weight}}" #weight>
+            <input formControlName="weight" type="number" value="{{student.grades[i].weight}}" min="1" max="5" #weight>
           </div>
 
           <button class="ui positive button" type="submit" value="Submit" (click)="editGrade(subject,grade,weight,i)">Submit</button>
         </form>
       </div>
     </div>
-    <div class="ui stacked segment" *ngIf="gradeEdit">
+    <div class="ui stacked segment" *ngIf="gradeAdd">
 
-      <form>
+      <form [formGroup]="editMarkForm">
         <div class="ui labeled input">
           <div class="ui label">
             Subject
           </div>
-          <input type="text" #subject required>
+          <input formControlName="subject" type="text" #subject required>
         </div>
 
         <div class="ui labeled input">
           <div class="ui label">
             Grade
           </div>
-          <input type="number" #grade required>
+          <input formControlName="grade" type="number" min="1" max="6" #grade required>
         </div>
 
         <div class="ui labeled input">
           <div class="ui label">
             Weight
           </div>
-          <input type="number" #weight required>
+          <input formControlName="weight" type="number" min="1" max="5" #weight required>
         </div>
 
         <button class="ui positive button" *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" type="submit" value="Add grade" (click)="addGrade(subject,grade,weight)">Add grade</button>
       </form>
 
     </div>
-    <button class="ui positive fluid button"  *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" (click)="editGrades()">Add new grades</button>
+    <button class="ui positive fluid button"  *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" (click)="toggleGradeAdd()">Add new grades</button>
     <br>
     <h3 class="ui horizontal divider header"> <b>Average:</b> {{average()}}</h3>
     <br>
