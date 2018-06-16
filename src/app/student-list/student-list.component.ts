@@ -42,4 +42,8 @@ export class StudentListComponent implements OnInit {
     console.log(student.name + " was added");
     this.students.push(student);
   }
+
+  studentSorted() {
+    this.students = this.studentService.sortStudents(this.students);
+  }
 }

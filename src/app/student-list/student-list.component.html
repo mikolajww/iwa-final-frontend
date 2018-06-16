@@ -1,4 +1,4 @@
-<app-student-search></app-student-search>
+<app-student-search app-student-search (onStudentSorted) = "studentSorted($event)"></app-student-search>
 <app-student-add (onStudentAdded) = "studentAdded($event)"></app-student-add>
 
 <h1 class="ui horizontal divider header">Student List</h1>

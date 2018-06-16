@@ -1,5 +1,6 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SortingParameter, SortingType, StudentService} from '../student.service';
+import {Student} from "../student";
 declare var jQuery:any;
 
 @Component({
@@ -9,8 +10,10 @@ declare var jQuery:any;
 })
 export class StudentSearchComponent implements OnInit {
 
-
-  constructor(private studentService:StudentService) { }
+  @Output() onStudentSorted: EventEmitter<string>;
+  constructor(private studentService:StudentService) {
+    this.onStudentSorted = new EventEmitter<string>();
+  }
 
   ngOnInit() {
     jQuery('.ui.dropdown').dropdown();
@@ -26,8 +29,8 @@ export class StudentSearchComponent implements OnInit {
 
   setSorting(param:HTMLInputElement, type:HTMLInputElement) {
     this.studentService.sortingParam = (parseInt(param.value) == 0) ? (SortingParameter.SURNAME)
-                                     : (parseInt(param.value) == 1) ? (SortingParameter.NAME) : (SortingParameter.INDEX);
+      : (parseInt(param.value) == 1) ? (SortingParameter.NAME) : (SortingParameter.INDEX);
     this.studentService.sortingType = (parseInt(type.value) == 0) ? (SortingType.DESC) : (SortingType.ASC);
-    this.studentService.sortStudents();
+    this.onStudentSorted.emit("sorted");
   }
 }
