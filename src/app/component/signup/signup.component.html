@@ -1,0 +1,8 @@
+<form class="ui form">
+  <input class="ui input" placeholder="name" #name>
+  <input class="ui input" placeholder="username" #username>
+  <input class="ui input" placeholder="email" #email>
+  <input class="ui input" placeholder="password" #pass>
+</form>
+<button class="ui right floated button" type="submit" (click)="signup(name,username,email, pass); ">Sign up</button>
+<br><br>
