@@ -3,6 +3,7 @@ import {Student} from "../../../model/student";
 import {StudentService} from "../../../service/student.service";
 import {Grade} from "../../../model/grade";
 import {AuthService} from "../../../service/auth.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 declare var jQuery:any;
 
 @Component({
@@ -14,13 +15,31 @@ declare var jQuery:any;
 export class StudentDetailComponent implements OnInit {
   @Input() student:Student;
   detailedInfo:boolean;
-  gradeEdit:boolean;
+  gradeAdd:boolean;
+  isGradeEdited:boolean;
   @Output() onStudentDeleted: EventEmitter<Student>;
+  editGradeForm:FormGroup;
+  addGradeForm:FormGroup;
 
 
-  constructor(private studentService:StudentService, private auth:AuthService) {
+  constructor(private studentService:StudentService, private auth:AuthService, private fb:FormBuilder) {
     this.detailedInfo = false;
     this.onStudentDeleted = new EventEmitter<Student>();
+    this.createForms();
+    this.isGradeEdited = false;
+  }
+
+  createForms() {
+    this.editGradeForm = this.fb.group({
+      subject: ['', Validators.required],
+      grade: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(6)])],
+      weight: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(5)])]
+    });
+    this.addGradeForm = this.fb.group({
+      newSubject: ['', Validators.required],
+      newGrade: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(6)])],
+      newWeight: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(5)])]
+    });
   }
 
   ngOnInit() {
@@ -35,6 +54,7 @@ export class StudentDetailComponent implements OnInit {
     subject.value = "";
     grade.value = "";
     weight.value = "";
+    this.toggleGradeAdd();
     return false;
   }
 
@@ -44,6 +64,7 @@ export class StudentDetailComponent implements OnInit {
         g => {this.student.grades[i] = g}
       );
     }
+    this.isGradeEdited = false;
     return false;
   }
 
@@ -71,17 +92,38 @@ export class StudentDetailComponent implements OnInit {
     return false;
   }
 
-  editGrades() {
-    this.gradeEdit = !this.gradeEdit;
+  toggleGradeAdd() {
+    this.gradeAdd = !this.gradeAdd;
     return false;
   }
 
   toggleEdit(grade:Grade) {
     grade.singleGradeEdit = !grade.singleGradeEdit;
+    this.isGradeEdited = !this.isGradeEdited;
   }
 
   getRole() {
     return this.auth.getRole();
+  }
+
+  get subjectInput() {
+    return this.editGradeForm.get('subject');
+  }
+  get gradeInput() {
+    return this.editGradeForm.get('grade');
+  }
+  get weightInput() {
+    return this.editGradeForm.get('weight');
+  }
+
+  get subjectAddFormInput() {
+    return this.addGradeForm.get('newSubject');
+  }
+  get gradeAddFormInput() {
+    return this.addGradeForm.get('newGrade');
+  }
+  get weightAddFormInput() {
+    return this.addGradeForm.get('newWeight');
   }
 
 }

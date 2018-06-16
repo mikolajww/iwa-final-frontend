@@ -1,3 +1,4 @@
+
 <div class="ui segments">
   <div class="ui stacked segment">
     <div class="ui grid">
@@ -25,67 +26,71 @@
         <div class="ui four wide column">
 
           <button class="ui negative right floated button"  *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" (click)="deleteGrade(grade)">Delete grade</button>
-          <button class="ui simple right floated button" *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" (click)="toggleEdit(grade)">Edit grade</button>
+          <button class="ui simple right floated button" *ngIf="(getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER') && !isGradeEdited" (click)="toggleEdit(grade)">Edit grade</button>
 
         </div>
       </div>
       <div *ngIf="grade.singleGradeEdit">
         <br>
-        <form>
-          <div class="ui labeled input">
-            <div class="ui label">
-              Subject
+        <form class="ui form" [formGroup]="editGradeForm">
+          <div class="inline fields">
+            <div class="field" [ngClass]="(subjectInput.invalid && subjectInput.dirty)?'error' : (subjectInput.valid)?'success':''">
+              <label>
+                Subject
+              </label>
+              <input formControlName="subject" class="ui input" type="text" value="{{student.grades[i].subject}}" #subject>
             </div>
-            <input type="text" value="{{student.grades[i].subject}}" #subject required minlength="2" maxlength="30">
-          </div>
 
-          <div class="ui labeled input">
-            <div class="ui label">
-              Grade
+            <div class="field" [ngClass]="(gradeInput.invalid && gradeInput.dirty)?'error' : (gradeInput.valid)?'success':''">
+              <label>
+                Grade
+              </label>
+              <input formControlName="grade" class="ui input" type="number" value="{{student.grades[i].grade}}" min="1" max="6" #grade>
             </div>
-            <input type="number" value="{{student.grades[i].grade}}" #grade min="1" max="5">
-          </div>
 
-          <div class="ui labeled input">
-            <div class="ui label">
-              Weight
+            <div class="field" [ngClass]="(weightInput.invalid && weightInput.dirty)?'error' : (weightInput.valid)?'success':''">
+              <label>
+                Weight
+              </label>
+              <input formControlName="weight" class="ui input" type="number" value="{{student.grades[i].weight}}" min="1" max="5" #weight>
             </div>
-            <input type="number" value="{{student.grades[i].weight}}" #weight min="1" max="10">
-          </div>
 
-          <button class="ui positive button" type="submit" value="Submit" (click)="editGrade(subject,grade,weight,i)">Submit</button>
+            <button class="ui positive button" type="submit" value="Submit" [disabled]="(subjectInput.invalid && subjectInput.dirty) ||
+            (gradeInput.invalid && gradeInput.dirty) || (weightInput.invalid && weightInput.dirty)" (click)="editGrade(subject,grade,weight,i); editGradeForm.reset()">Submit</button>
+          </div>
         </form>
       </div>
     </div>
-    <div class="ui stacked segment" *ngIf="gradeEdit">
+    <div class="ui stacked segment" *ngIf="gradeAdd">
 
-      <form>
-        <div class="ui labeled input">
-          <div class="ui label">
-            Subject
+      <form class="ui form" [formGroup]="addGradeForm">
+        <div class="inline fields">
+          <div class="field" [ngClass]="(subjectAddFormInput.invalid && subjectAddFormInput.touched)?'error' : (subjectAddFormInput.valid)?'success':''">
+            <label>
+              Subject
+            </label>
+            <input formControlName="newSubject" class="ui input" type="text" #newsubject>
           </div>
-          <input type="text" #subject required minlength="1" maxlength="30">
-        </div>
 
-        <div class="ui labeled input">
-          <div class="ui label">
-            Grade
+          <div class="field" [ngClass]="(gradeAddFormInput.invalid && gradeAddFormInput.touched)?'error' : (gradeAddFormInput.valid)?'success':''">
+            <label>
+              Grade
+            </label>
+            <input formControlName="newGrade" class="ui input" type="number" min="1" max="6" #newgrade>
           </div>
-          <input type="number" #grade required min="1" max="5">
-        </div>
 
-        <div class="ui labeled input">
-          <div class="ui label">
-            Weight
+          <div class="field" [ngClass]="(weightAddFormInput.invalid && weightAddFormInput.dirty)?'error' : (weightAddFormInput.valid)?'success':''">
+            <label>
+              Weight
+            </label>
+            <input formControlName="newWeight" class="ui input" type="number" min="1" max="5" #newweight>
           </div>
-          <input type="number" #weight required min="1" max="10">
+          <button class="ui positive button" [disabled]="addGradeForm.invalid" *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" type="submit" value="Add grade" (click)="addGrade(newsubject,newgrade,newweight); addGradeForm.reset()">Add grade</button>
         </div>
-
-        <button class="ui positive button" *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" type="submit" value="Add grade" (click)="addGrade(subject,grade,weight)">Add grade</button>
       </form>
 
     </div>
-    <button class="ui positive fluid button"  *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" (click)="editGrades()">Add new grades</button>
+    <button class="ui positive fluid button"  *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" (click)="toggleGradeAdd()">Add new grades</button>
     <br>
     <h3 class="ui horizontal divider header"> <b>Average:</b> {{average()}}</h3>
     <br>
