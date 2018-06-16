@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {Student} from '../student';
-import {StudentService} from '../student.service';
-import {Grade} from '../grade';
+import {Student} from '../../../model/student';
+import {StudentService} from '../../../service/student.service';
+import {Grade} from '../../../model/grade';
 declare var jQuery:any;
 
 @Component({

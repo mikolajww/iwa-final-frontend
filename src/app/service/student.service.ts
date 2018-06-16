@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Student} from './student';
-import {Grade} from './grade';
+import {Student} from '../model/student';
+import {Grade} from '../model/grade';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {tap} from "rxjs/operators";
@@ -129,5 +129,4 @@ export class StudentService {
     }
     return sumGrades/sumWeights;
   }
-
 }

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Student} from "../student";
-import {StudentService} from "../student.service";
+import {Student} from "../../../model/student";
+import {StudentService} from "../../../service/student.service";
 
 @Component({
   selector: 'app-student-add',

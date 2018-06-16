@@ -2,13 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 
-import { AppComponent } from './app.component';
-import { StudentListComponent } from './student-list/student-list.component';
-import { StudentDetailComponent } from './student-detail/student-detail.component';
-import {StudentService} from './student.service';
-import { StudentSearchComponent } from './student-search/student-search.component';
-import { FilterPipe } from './filter.pipe';
-import { StudentAddComponent } from './student-add/student-add.component';
+import { AppComponent } from './component/app.component';
+import { StudentListComponent } from './component/student/student-list/student-list.component';
+import { StudentDetailComponent } from './component/student/student-detail/student-detail.component';
+import {StudentService} from './service/student.service';
+import { StudentSearchComponent } from './component/student/student-search/student-search.component';
+import { FilterPipe } from './service/filter.pipe';
+import { StudentAddComponent } from './component/student/student-add/student-add.component';
 import { HttpClientModule } from "@angular/common/http";
 import { AboutComponent } from './about/about.component';
 import {RouterModule, Routes} from "@angular/router";

@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {SortingParameter, SortingType, StudentService} from '../student.service';
-import {Student} from "../student";
+import {SortingParameter, SortingType, StudentService} from '../../../service/student.service';
+import {Student} from "../../../model/student";
 declare var jQuery:any;
 
 @Component({
