@@ -3,15 +3,16 @@
   <div class="ui stacked segment">
     <div class="ui grid">
       <div class="twelve wide column">
+        <img src={{student.thumbnailUrl}} width="150px" height="150px">
         <h3 class="ui left aligned header">{{student.name}} {{student.surname}}, {{student.indexNr}}</h3>
-
       </div>
       <div class="four wide column">
         <div class="ui buttons">
+          <button class="ui negative right floated button" *ngIf="getRole() == 'ROLE_ADMIN'" (click)="deleteStudent()">Delete Student</button>
           <button class="ui simple right floated button" (click)="showDetail()"><span *ngIf="!detailedInfo">Show details</span>
             <span *ngIf="detailedInfo">Hide details</span>
           </button>
-          <button class="ui negative right floated button" (click)="deleteStudent()">Delete Student</button>
+
         </div>
       </div>
     </div>
@@ -23,36 +24,38 @@
           <h3 class="ui left floated">{{grade.subject}} - {{grade.grade}}, weight {{grade.weight}}</h3>
         </div>
         <div class="ui four wide column">
-          <div class="ui buttons">
-            <button class="ui simple right floated button" (click)="toggleEdit(grade)">Edit grade</button>
-            <button class="ui negative right floated button" (click)="deleteGrade(grade)">Delete grade</button>
-          </div>
+
+          <button class="ui negative right floated button"  *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" (click)="deleteGrade(grade)">Delete grade</button>
+          <button class="ui simple right floated button" *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" (click)="toggleEdit(grade)">Edit grade</button>
+
         </div>
       </div>
       <div *ngIf="grade.singleGradeEdit">
         <br>
-        <div class="ui labeled input">
-          <div class="ui label">
-            Subject
+        <form>
+          <div class="ui labeled input">
+            <div class="ui label">
+              Subject
+            </div>
+            <input type="text" value="{{student.grades[i].subject}}" #subject>
           </div>
-          <input type="text" value="{{student.grades[i].subject}}" #subject>
-        </div>
 
-        <div class="ui labeled input">
-          <div class="ui label">
-            Grade
+          <div class="ui labeled input">
+            <div class="ui label">
+              Grade
+            </div>
+            <input type="number" value="{{student.grades[i].grade}}" #grade>
           </div>
-          <input type="number" value="{{student.grades[i].grade}}" #grade>
-        </div>
 
-        <div class="ui labeled input">
-          <div class="ui label">
-            Weight
+          <div class="ui labeled input">
+            <div class="ui label">
+              Weight
+            </div>
+            <input type="number" value="{{student.grades[i].weight}}" #weight>
           </div>
-          <input type="number" value="{{student.grades[i].weight}}" #weight>
-        </div>
 
-        <input class="ui positive button" type="submit" value="Submit" (click)="editGrade(subject,grade,weight,i)">
+          <button class="ui positive button" type="submit" value="Submit" (click)="editGrade(subject,grade,weight,i)">Submit</button>
+        </form>
       </div>
     </div>
     <div class="ui stacked segment" *ngIf="gradeEdit">
@@ -79,11 +82,11 @@
           <input type="number" #weight required>
         </div>
 
-        <input class="ui positive button" type="submit" value="Add grade" (click)="addGrade(subject,grade,weight)">
+        <button class="ui positive button" *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" type="submit" value="Add grade" (click)="addGrade(subject,grade,weight)">Add grade</button>
       </form>
 
     </div>
-    <button class="ui positive fluid button" (click)="editGrades()">Add new grades</button>
+    <button class="ui positive fluid button"  *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" (click)="editGrades()">Add new grades</button>
     <br>
     <h3 class="ui horizontal divider header"> <b>Average:</b> {{average()}}</h3>
     <br>

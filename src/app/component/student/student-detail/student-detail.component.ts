@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {Student} from '../../../model/student';
-import {StudentService} from '../../../service/student.service';
-import {Grade} from '../../../model/grade';
+import {Student} from "../../../model/student";
+import {StudentService} from "../../../service/student.service";
+import {Grade} from "../../../model/grade";
+import {AuthService} from "../../../service/auth.service";
 declare var jQuery:any;
 
 @Component({
@@ -10,24 +11,19 @@ declare var jQuery:any;
   styleUrls: ['./student-detail.component.css']
 })
 
-export class StudentDetailComponent implements OnInit, OnDestroy {
+export class StudentDetailComponent implements OnInit {
   @Input() student:Student;
   detailedInfo:boolean;
   gradeEdit:boolean;
   @Output() onStudentDeleted: EventEmitter<Student>;
 
 
-  constructor(private studentService:StudentService) {
+  constructor(private studentService:StudentService, private auth:AuthService) {
     this.detailedInfo = false;
     this.onStudentDeleted = new EventEmitter<Student>();
   }
 
   ngOnInit() {
-
-  }
-
-  ngOnDestroy() {
-    console.log('Destroyed ' + this.student.name);
   }
 
   addGrade(subject:HTMLInputElement, grade:HTMLInputElement, weight:HTMLInputElement):boolean{
@@ -82,6 +78,10 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
 
   toggleEdit(grade:Grade) {
     grade.singleGradeEdit = !grade.singleGradeEdit;
+  }
+
+  getRole() {
+    return this.auth.getRole();
   }
 
 }
