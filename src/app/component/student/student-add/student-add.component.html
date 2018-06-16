@@ -22,4 +22,12 @@
     <input class="ui positive right floated button" type="submit" value="Submit" (click)="addStudent(name,surname,idx); name.value = ''; surname.value = ''; idx.value = ''">
   </form>
 </div>
-<br>
+
+<div class="ui negative message incorrect">
+  <div class="content">
+    <div class="header">
+      Incorrect data
+    </div>
+    <p>The fields are incorrect!</p>
+  </div>
+</div>
