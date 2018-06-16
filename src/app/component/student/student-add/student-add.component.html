@@ -1,19 +1,19 @@
 <h1 class="ui horizontal divider center aligned header">Add a student</h1>
 <div class="ui raised segment">
   <form [formGroup]="addStudentForm">
-    <div class="ui labeled input field" [ngClass]="(name.invalid && name.touched)?'error' : (name.valid)?'success':''">
+    <div class="ui labeled input field" [ngClass]="(name.invalid && name.touched && name.value.length > 0)?'error' : (name.valid)?'success':''">
       <div class="ui label">
         Name
       </div>
       <input type="text" #name required>
     </div>
-    <div class="ui labeled input field" [ngClass]="(surname.invalid && surname.touched)?'error' : (surname.valid)?'success':''">
+    <div class="ui labeled input field" [ngClass]="(surname.invalid && surname.touched && surname.value.length > 0)?'error' : (surname.valid)?'success':''">
       <div class="ui label">
         Surname
       </div>
       <input type="text" #surname required>
     </div>
-    <div class="ui labeled input field" [ngClass]="(idx.invalid && idx.touched)?'error' : (idx.valid)?'success':''">
+    <div class="ui labeled input field" [ngClass]="(idx.invalid && idx.touched && idx.value.length > 0)?'error' : (idx.valid)?'success':''">
       <div class="ui label">
         Index number
       </div>
