@@ -2,9 +2,16 @@
 <header>
   <div class="ui inverted segment">
     <h1 class="ui center aligned massive header">Welcome to {{ title }}!</h1>
-    <div class="ui two item inverted menu">
+    <div *ngIf="!isLoggedIn()" class="ui three item inverted menu">
+      <a [routerLink]="['/about']" class="item">About</a>
+      <a [routerLink]="['/signup']" class="item">Sign up</a>
+      <a [routerLink]="['/login']" class="item">Log in</a>
+    </div>
+    <div *ngIf="isLoggedIn()" class="ui four item inverted menu">
       <a [routerLink]="['/home']" class="item" >Student List</a>
       <a [routerLink]="['/about']" class="item">About</a>
+      <a class="item">Logged in as {{getRole()}}</a>
+      <a class="item" (click)="logout()">Log out</a>
     </div>
   </div>
 

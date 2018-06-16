@@ -16,6 +16,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AuthService} from "./service/auth.service";
 import {LoggedInGuard} from "./service/logged-in.guard";
 import {TokenInterceptor} from './service/token-interceptor.service';
+import { LoginComponent } from './component/login/login.component';
+import { SignupComponent } from './component/signup/signup.component';
 
 const routes:Routes = [
   {path: '',redirectTo:'about', pathMatch:'full'},
@@ -31,7 +33,9 @@ const routes:Routes = [
     StudentSearchComponent,
     FilterPipe,
     StudentAddComponent,
-    AboutComponent
+    AboutComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
