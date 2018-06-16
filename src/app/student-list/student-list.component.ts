@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {StudentService} from '../student.service';
+declare var jQuery:any;
 
 @Component({
   selector: 'app-student-list',
