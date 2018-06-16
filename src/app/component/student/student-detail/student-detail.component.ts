@@ -3,6 +3,7 @@ import {Student} from "../../../model/student";
 import {StudentService} from "../../../service/student.service";
 import {Grade} from "../../../model/grade";
 import {AuthService} from "../../../service/auth.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 declare var jQuery:any;
 
 @Component({
@@ -14,13 +15,23 @@ declare var jQuery:any;
 export class StudentDetailComponent implements OnInit {
   @Input() student:Student;
   detailedInfo:boolean;
-  gradeEdit:boolean;
+  gradeAdd:boolean;
   @Output() onStudentDeleted: EventEmitter<Student>;
+  editMarkForm:FormGroup;
 
 
-  constructor(private studentService:StudentService, private auth:AuthService) {
+  constructor(private studentService:StudentService, private auth:AuthService, private fb:FormBuilder) {
     this.detailedInfo = false;
     this.onStudentDeleted = new EventEmitter<Student>();
+    this.createForm();
+  }
+
+  createForm() {
+    this.editMarkForm = this.fb.group({
+      subject: ['', Validators.required],
+      grade: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(6)])],
+      weight: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(5)])]
+    });
   }
 
   ngOnInit() {
@@ -35,6 +46,7 @@ export class StudentDetailComponent implements OnInit {
     subject.value = "";
     grade.value = "";
     weight.value = "";
+    this.toggleGradeAdd();
     return false;
   }
 
@@ -71,8 +83,8 @@ export class StudentDetailComponent implements OnInit {
     return false;
   }
 
-  editGrades() {
-    this.gradeEdit = !this.gradeEdit;
+  toggleGradeAdd() {
+    this.gradeAdd = !this.gradeAdd;
     return false;
   }
 
