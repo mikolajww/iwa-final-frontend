@@ -1,6 +1,10 @@
+<app-student-search></app-student-search>
+<app-student-add (onStudentAdded) = "studentAdded($event)"></app-student-add>
+
 <h1 class="ui horizontal divider header">Student List</h1>
 <br>
-<app-student-detail *ngFor="let s of getService().getStudents() | filter:getService().getFilter()" [student]="s">
+<app-student-detail  (onStudentDeleted) = "studentDeleted($event)"
+                     *ngFor="let s of students | filter:getService().getFilter() " [student]="s">
 </app-student-detail>
 
 <div class="ui basic modal">

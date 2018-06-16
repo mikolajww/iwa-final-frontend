@@ -19,7 +19,7 @@
       </div>
       <input type="number" #idx required>
     </div>
-    <input class="ui positive right floated button" type="submit" value="Submit" (click)="addStudent(name,surname,idx)">
+    <input class="ui positive right floated button" type="submit" value="Submit" (click)="addStudent(name,surname,idx); name.value = ''; surname.value = ''; idx.value = ''">
   </form>
 </div>
 <br>

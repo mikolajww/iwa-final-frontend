@@ -23,7 +23,7 @@
         </div>
         <div class="ui four wide column">
           <div class="ui buttons">
-            <button class="ui simple right floated button" (click)="grade.toggleEdit()">Edit grade</button>
+            <button class="ui simple right floated button" (click)="toggleEdit(grade)">Edit grade</button>
             <button class="ui negative right floated button" (click)="deleteGrade(grade)">Delete grade</button>
           </div>
         </div>
@@ -34,21 +34,21 @@
           <div class="ui label">
             Subject
           </div>
-          <input (keyup)="editGrade(subject,grade,weight,i)" type="text" value="{{student.grades[i].subject}}" #subject>
+          <input type="text" value="{{student.grades[i].subject}}" #subject>
         </div>
 
         <div class="ui labeled input">
           <div class="ui label">
             Grade
           </div>
-          <input (keyup)="editGrade(subject,grade,weight,i)" type="number" value="{{student.grades[i].grade}}" #grade>
+          <input type="number" value="{{student.grades[i].grade}}" #grade>
         </div>
 
         <div class="ui labeled input">
           <div class="ui label">
             Weight
           </div>
-          <input (keyup)="editGrade(subject,grade,weight,i)" type="number" value="{{student.grades[i].weight}}" #weight>
+          <input type="number" value="{{student.grades[i].weight}}" #weight>
         </div>
 
         <input class="ui positive button" type="submit" value="Submit" (click)="editGrade(subject,grade,weight,i)">

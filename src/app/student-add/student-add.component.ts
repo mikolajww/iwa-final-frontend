@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Student} from "../student";
 import {StudentService} from "../student.service";
 
@@ -9,14 +9,17 @@ import {StudentService} from "../student.service";
 })
 export class StudentAddComponent implements OnInit {
 
+  @Output() onStudentAdded: EventEmitter<Student>;
+
   constructor(private studentService:StudentService) {
+    this.onStudentAdded = new EventEmitter<Student>();
   }
 
   addStudent(name:HTMLInputElement, surname:HTMLInputElement, indexNr:HTMLInputElement):boolean{
     if(name.value === "" || surname.value === "" || indexNr.value === "" ) {
       return false;
     }
-    this.studentService.addStudent(new Student(name.value, surname.value, parseInt(indexNr.value)));
+    this.studentService.addStudent(new Student(name.value, surname.value, parseInt(indexNr.value))).subscribe( s => this.onStudentAdded.emit(s));
     return false;
   }
 

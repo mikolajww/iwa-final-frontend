@@ -1,7 +1,8 @@
 export class Grade {
   subject:string;
   grade:number;
-  weight:number;
+  weight:number
+  id:number;
   singleGradeEdit:boolean;
 
   constructor(subject: string, grade: number, weight: number) {
@@ -10,10 +11,4 @@ export class Grade {
     this.weight = weight;
     this.singleGradeEdit = false;
   }
-
-  toggleEdit():boolean {
-    this.singleGradeEdit = !this.singleGradeEdit;
-    return false;
-  }
 }
-
