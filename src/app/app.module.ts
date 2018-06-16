@@ -15,6 +15,7 @@ import {AboutComponent} from "./component/about/about.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AuthService} from "./service/auth.service";
 import {LoggedInGuard} from "./service/logged-in.guard";
+import {TokenInterceptor} from './service/token-interceptor.service';
 
 const routes:Routes = [
   {path: '',redirectTo:'about', pathMatch:'full'},
@@ -39,7 +40,11 @@ const routes:Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [StudentService, AuthService, LoggedInGuard],
+  providers: [StudentService, AuthService, LoggedInGuard, {
+      provide: HTTP_INTERCEPTORS,
+     useClass: TokenInterceptor,
+      multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
