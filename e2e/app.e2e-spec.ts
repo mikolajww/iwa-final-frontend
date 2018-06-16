@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('iwa-final-frontend App', () => {
+describe('student-list-angular App', () => {
   let page: AppPage;
 
   beforeEach(() => {

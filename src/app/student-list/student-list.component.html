@@ -1,0 +1,5 @@
+<h1 class="ui horizontal divider header">Student List</h1>
+<br>
+<app-student-detail *ngFor="let s of getService().getStudents() | filter:getService().getFilter()" [student]="s">
+</app-student-detail>
+

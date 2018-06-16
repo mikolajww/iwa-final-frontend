@@ -1,0 +1,30 @@
+<h1 class="ui horizontal divider center aligned header">Find a student</h1>
+<div class="ui four wide column">
+  <div class="ui action fluid input">
+    <input type="text" placeholder="Search..." #query (keyup)="search(query)">
+    <button class="ui button" (click)="reset()">Show All</button>
+</div>
+</div>
+<br>
+<div class="ui selection dropdown">
+  <input type="hidden" name="sortingParameter" #param >
+  <i class="dropdown icon"></i>
+  <div class="default text">Sort by...</div>
+  <div class="menu">
+    <div class="item" data-value="2">Index Number</div>
+    <div class="item" data-value="1">Name</div>
+    <div class="item" data-value="0">Surname</div>
+  </div>
+</div>
+<div class="ui selection dropdown">
+  <input type="hidden" name="sortingType" #type>
+  <div class="default text">Order...</div>
+  <i class="dropdown icon"></i>
+  <div class="menu">
+    <div class="item" data-value="1">Ascending</div>
+    <div class="item" data-value="0">Descending</div>
+  </div>
+</div>
+<button class="ui simple button" (click)="setSorting(param,type)" >Sort</button>
+<br><br>
+
