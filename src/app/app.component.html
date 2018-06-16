@@ -2,11 +2,16 @@
 <header>
   <div class="ui inverted segment">
     <h1 class="ui center aligned massive header">Welcome to {{ title }}!</h1>
+    <div class="ui two item inverted menu">
+      <a [routerLink]="['/home']" class="item" >Student List</a>
+      <a [routerLink]="['/about']" class="item">About</a>
+    </div>
   </div>
+
 </header>
 <br>
 <div class="ui main container">
-  <app-student-list></app-student-list>
+  <router-outlet></router-outlet>
 </div>
 <div class="ui inverted segment footer">
   Mikolaj Wojtysiak-Wawrzyniak, Copyright &copy; 2018
