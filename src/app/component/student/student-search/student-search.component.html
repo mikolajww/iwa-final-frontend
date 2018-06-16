@@ -1,9 +1,9 @@
 <h1 class="ui horizontal divider center aligned header">Find a student</h1>
 <div class="ui four wide column">
   <div class="ui action fluid input">
-    <input type="text" placeholder="Search..." #query (keyup)="search(query)">
-    <button class="ui button" (click)="reset()">Show All</button>
-</div>
+    <input type="text" placeholder="Search..." #q (keyup)="search(q)">
+    <button class="ui button" (click)="reset();q.value=''">Show All</button>
+  </div>
 </div>
 <br>
 <div class="ui selection dropdown">
@@ -27,4 +27,3 @@
 </div>
 <button class="ui simple button" (click)="setSorting(param,type)" >Sort</button>
 <br><br>
-
