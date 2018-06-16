@@ -1,25 +1,40 @@
 <h1 class="ui horizontal divider center aligned header">Add a student</h1>
 <div class="ui raised segment">
-  <form [formGroup]="addStudentForm">
-    <div class="ui labeled input field" [ngClass]="(name.invalid && name.touched && name.value.length > 0)?'error' : (name.valid)?'success':''">
-      <div class="ui label">
-        Name
+
+  <form class="ui form" [formGroup]="addStudentForm">
+    <div class="ui grid">
+      <div class="ui fourteen wide column">
+      <div class="three fields">
+      <div class="field" [ngClass]="(name.invalid && name.touched && name.value.length > 0)?'error' : (name.valid)?'success':''">
+          <label>
+            Name
+          </label>
+          <input class="ui input" type="text" formControlName="name">
       </div>
-      <input type="text" #name required>
-    </div>
-    <div class="ui labeled input field" [ngClass]="(surname.invalid && surname.touched && surname.value.length > 0)?'error' : (surname.valid)?'success':''">
-      <div class="ui label">
-        Surname
+      <div class="field" [ngClass]="(surname.invalid && surname.touched && surname.value.length > 0)?'error' : (surname.valid)?'success':''">
+        <label>
+          Surname
+        </label>
+        <input class="ui input" type="text" formControlName="surname">
       </div>
-      <input type="text" #surname required>
-    </div>
-    <div class="ui labeled input field" [ngClass]="(idx.invalid && idx.touched && idx.value.length > 0)?'error' : (idx.valid)?'success':''">
-      <div class="ui label">
-        Index number
+      <div class="field" [ngClass]="(idx.invalid && idx.touched && idx.value != null && idx.value.toString().length > 0)?'error' : (idx.valid)?'success':''">
+          <label>
+            Index number
+          </label>
+          <input class="ui input" type="number" formControlName="idx">
+        </div>
       </div>
-      <input type="number" #idx required>
+
+      </div>
+      <div class="ui two wide column">
+        <div class="field">
+          <label >Submit</label>
+          <input class="ui positive fluid button" type="submit" value="Submit" [disabled]="addStudentForm.invalid" (click)="addStudent()">
+        </div>
+
+      </div>
+
     </div>
-    <input class="ui positive right floated button" type="submit" value="Submit" (click)="addStudent(name,surname,idx); name.value = ''; surname.value = ''; idx.value = ''">
   </form>
 </div>
 

@@ -15,6 +15,24 @@ export class StudentAddComponent implements OnInit {
 
   constructor(private studentService:StudentService, private fb:FormBuilder) {
     this.onStudentAdded = new EventEmitter<Student>();
+  }
+
+  addStudent():boolean{
+    if(this.addStudentForm.valid) {
+      this.studentService.addStudent(new Student(this.name.value, this.surname.value, parseInt(this.idx.value))).subscribe(
+        s => {this.onStudentAdded.emit(s)},
+        err => {
+          jQuery('.ui.negative.message.incorrect').show().delay(3000).fadeOut();
+          this.name.setValue('');
+          this.surname.setValue('');
+          this.idx.setValue('');
+        }
+      );
+    }
+    return false;
+  }
+
+  ngOnInit() {
     jQuery('.ui.negative.message.incorrect').hide();
     this.addStudentForm = this.fb.group({
       name:['',[Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
@@ -23,22 +41,14 @@ export class StudentAddComponent implements OnInit {
     });
   }
 
-  addStudent(name:HTMLInputElement, surname:HTMLInputElement, indexNr:HTMLInputElement):boolean{
-    if(this.addStudentForm.valid) {
-      this.studentService.addStudent(new Student(name.value, surname.value, parseInt(indexNr.value))).subscribe(
-        s => {this.onStudentAdded.emit(s)},
-        err => {
-          jQuery('.ui.negative.message.incorrect').show().delay(3000).fadeOut();
-          name.value = '';
-          surname.value = '';
-          indexNr.value = '';
-        }
-      );
-    }
-    return false;
+  get name() {
+    return this.addStudentForm.get('name');
   }
-
-  ngOnInit() {
+  get surname() {
+    return this.addStudentForm.get('surname');
+  }
+  get idx() {
+    return this.addStudentForm.get('idx');
   }
 
 }
