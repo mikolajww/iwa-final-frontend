@@ -14,7 +14,6 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
   @Input() student:Student;
   detailedInfo:boolean;
   gradeEdit:boolean;
-  thumbnailUrl:string;
   @Output() onStudentDeleted: EventEmitter<Student>;
 
 
@@ -24,9 +23,7 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.studentService.getAvatar(this.student).subscribe(r=> {
-      this.thumbnailUrl = r.thumbnailUrl;
-    });
+
   }
 
   ngOnDestroy() {
