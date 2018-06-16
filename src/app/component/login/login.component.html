@@ -1,8 +1,20 @@
-
-<form class="ui form">
-  <input placeholder="username or email" #usernameOrEmail>
-  <input placeholder="password" #pass>
-
-  <button class="ui right floated button" type="submit" (click)="login(usernameOrEmail, pass)">Login</button>
+<form class="ui huge form" [formGroup]="loginForm">
+  <div class="field" [ngClass]="(usernameOrEmail.invalid && usernameOrEmail.touched && usernameOrEmail.value.length > 0)?'error' : (usernameOrEmail.valid)?'success':''">
+    <label>Username or email</label>
+    <input placeholder="username or email" formControlName="usernameOrEmail" autofocus>
+  </div>
+  <div class="field" [ngClass]="(password.invalid && password.touched && password.value.length > 0)?'error' : (password.valid)?'success':''">
+    <label>Password</label>
+    <input placeholder="password" type="password" formControlName="password">
+  </div>
+  <button class="ui submit button" type="submit" [disabled]="loginForm.invalid" (click)="login()">Login</button>
 </form>
-<br><br>
+
+<div class="ui negative message incorrect">
+  <div class="content">
+    <div class="header">
+      Incorrect credentials
+    </div>
+    <p>The username or password are incorrect!</p>
+  </div>
+</div>

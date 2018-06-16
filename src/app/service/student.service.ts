@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Student} from '../model/student';
 import {Grade} from '../model/grade';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHandler, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {tap} from "rxjs/operators";
 
@@ -19,12 +19,9 @@ export class StudentService {
   sortingType:SortingType = SortingType.ASC;
 
   private apiUrl: string = 'http://localhost:8080/api/students';
-  private avatarUrl: string = 'https://jsonplaceholder.typicode.com/photos';
 
   private filter:string = "";
-  constructor(private http:HttpClient) {
-    console.log('service instance created')
-  }
+  constructor(private http:HttpClient) { }
 
   sortStudents(students:Student[]):Student[] {
     return students.sort((s1,s2) => {
@@ -65,10 +62,7 @@ export class StudentService {
         }
       }
     })
-  }
 
-  getAvatar(student:Student) {
-    return this.http.get<any>(`${this.avatarUrl}/${student.id}`);
   }
 
   getStudents() : Observable<Student[]> {
@@ -93,19 +87,19 @@ export class StudentService {
   }
 
 
-  deleteGrade(student:Student, grade:Grade):Observable<Grade> {
+  deleteGrade(student:Student, grade:Grade) {
     const gradeId = grade.id;
     const url = `${this.apiUrl}/${student.id}/grades/${gradeId}`;
     console.log(url);
     return this.http.delete<Grade>(url, httpOptions);
   }
 
-  addGradeForStudent(student:Student, grade:Grade):Observable<Grade> {
+  addGradeForStudent(student:Student, grade:Grade) {
     const url = `${this.apiUrl}/${student.id}/grades`;
     return this.http.post<Grade>(url, grade, httpOptions);
   }
 
-  editGradeForStudent(student:Student, gradeIdx:number, grade:Grade):Observable<Grade> {
+  editGradeForStudent(student:Student, gradeIdx:number, grade:Grade) {
     const gradeId = student.grades[gradeIdx].id;
     const url = `${this.apiUrl}/${student.id}/grades/${gradeId}`;
     return this.http.put<Grade>(url, grade, httpOptions);
@@ -129,4 +123,9 @@ export class StudentService {
     }
     return sumGrades/sumWeights;
   }
+
+  getAvatar(gender:string) {
+    return this.http.get<any>(`https://randomuser.me/api/?gender=${gender}`)
+  }
+
 }

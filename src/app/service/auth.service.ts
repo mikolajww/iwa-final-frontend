@@ -9,7 +9,9 @@ export class AuthService {
 
   login(usernameOrEmail:string, password:string) {
     console.log(usernameOrEmail + " " + password);
-    return this.http.post<any>(`${this.apiUrl}/auth/signin`,{"usernameOrEmail":usernameOrEmail, "password":password})
+    const hash = btoa(password);
+    console.log("hash: " , hash);
+    return this.http.post<any>(`${this.apiUrl}/auth/signin`,{"usernameOrEmail":usernameOrEmail, "password":hash})
   }
 
   logout() {
@@ -30,10 +32,24 @@ export class AuthService {
     localStorage.getItem("accessKey" )!== null
   }
 
-  signup(name:string, username:string,email:string, password:string, ) {
-    console.log(name,username,email,password);
-    return this.http.post<any>(`${this.apiUrl}/auth/signup`,{"name": name, "username":username, "email":email, "password":password});
+  signup(name:string, username:string,email:string, password:string ) {
+    console.log(name, username, email, password);
+    const hash = btoa(password);
+    console.log("hash: " , hash);
+    return this.http.post<any>(`${this.apiUrl}/auth/signup`,
+      {"name": name, "username": username, "email": email, "password": hash});
   }
 
+
+  usernameAvailable(username:string) {
+    return this.http.get<any>(`${this.apiUrl}/user/checkUsernameAvailability?username=${username}`);
+  }
+
+  emailAvailable(email:string) {
+    return this.http.get<any>(`${this.apiUrl}/user/checkEmailAvailability?email=${email}`);
+  }
+  getRole() {
+    return JSON.parse(localStorage.getItem('roles')).pop();
+  }
 
 }

@@ -21,8 +21,7 @@ export class AppComponent {
   }
 
   getRole() {
-    console.log(JSON.parse(localStorage.getItem('roles')));
-    return JSON.parse(localStorage.getItem('roles')).pop();
+    return this.auth.getRole();
   }
 
 }
