@@ -22,7 +22,7 @@ export class StudentListComponent implements OnInit {
       (s) => {
         this.students = s;
         for (let s of this.students) {
-          this.studentService.getAvatar('male').subscribe(r => s.thumbnailUrl = r.results[0].picture.large);
+          s.thumbnailUrl = this.studentService.getAvatar(s.id);
         }
       },
       err => {

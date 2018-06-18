@@ -124,8 +124,8 @@ export class StudentService {
     return sumGrades/sumWeights;
   }
 
-  getAvatar(gender:string) {
-    return this.http.get<any>(`https://randomuser.me/api/?gender=${gender}`)
+  getAvatar(id) {
+    return `https://api.adorable.io/avatars/150/${id}.png`
   }
 
 }

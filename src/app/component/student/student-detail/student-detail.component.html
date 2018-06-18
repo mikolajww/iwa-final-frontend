@@ -1,7 +1,7 @@
 
 <div class="ui segments">
   <div class="ui stacked segment">
-    <div class="ui grid">
+    <div class="ui stackable grid">
       <div class="twelve wide column">
         <img src={{student.thumbnailUrl}} width="150px" height="150px">
         <h3 class="ui left aligned header">{{student.name}} {{student.surname}}, {{student.indexNr}}</h3>
@@ -19,14 +19,15 @@
   </div>
   <div class="ui stacked segment" *ngIf="detailedInfo">
     <div class="ui segment" *ngFor="let grade of student.grades let i=index">
-      <div class="ui grid">
-        <div class="ui twelve wide column">
+      <div class="ui grid container">
+        <div class="ui twelve wide computer six wide mobile column">
           <h3 class="ui left floated">{{grade.subject}} - {{grade.grade}}, weight {{grade.weight}}</h3>
         </div>
-        <div class="ui four wide column">
+        <div class="ui four wide computer six wide mobile column">
 
-          <button class="ui negative right floated button"  *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" (click)="deleteGrade(grade)">Delete grade</button>
-          <button class="ui simple right floated button" *ngIf="(getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER') && !isGradeEdited" (click)="toggleEdit(grade)">Edit grade</button>
+          <button class="ui negative right button"  *ngIf="getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER'" (click)="deleteGrade(grade)">Delete grade</button>
+          <button class="ui simple right button" *ngIf="(getRole() == 'ROLE_ADMIN' || getRole() == 'ROLE_TEACHER') && !isGradeEdited" (click)="toggleEdit(grade)">Edit grade</button>
+
 
         </div>
       </div>

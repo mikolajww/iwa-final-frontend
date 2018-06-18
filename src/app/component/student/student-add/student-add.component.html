@@ -2,7 +2,7 @@
 <div class="ui raised segment">
 
   <form class="ui form" [formGroup]="addStudentForm">
-    <div class="ui grid">
+    <div class="ui stackable grid">
       <div class="ui fourteen wide column">
       <div class="three fields">
       <div class="field" [ngClass]="(name.invalid && name.touched && name.value.length > 0)?'error' : (name.valid)?'success':''">
@@ -28,7 +28,7 @@
       </div>
       <div class="ui two wide column">
         <div class="field">
-          <label >Submit</label>
+          <label><span class="invis">.</span></label>
           <input class="ui positive fluid button" type="submit" value="Submit" [disabled]="addStudentForm.invalid" (click)="addStudent()">
         </div>
 
