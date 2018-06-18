@@ -19,7 +19,7 @@
   </div>
   <div class="ui stacked segment" *ngIf="detailedInfo">
     <div class="ui segment" *ngFor="let grade of student.grades let i=index">
-      <div class="ui grid container">
+      <div class="ui stackable grid">
         <div class="ui twelve wide computer six wide mobile column">
           <h3 class="ui left floated">{{grade.subject}} - {{grade.grade}}, weight {{grade.weight}}</h3>
         </div>
